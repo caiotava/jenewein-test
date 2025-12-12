@@ -13,3 +13,8 @@
 ###> ide's files
 /.idea/
 ###<
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
