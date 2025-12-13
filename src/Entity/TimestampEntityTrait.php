@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 trait TimestampEntityTrait
 {
     #[ORM\Column]
@@ -37,7 +38,7 @@ trait TimestampEntityTrait
         $this->deletedAt = null;
     }
 
-    public function isDeleted() : bool
+    public function isDeleted(): bool
     {
         return is_null($this->deletedAt);
     }
