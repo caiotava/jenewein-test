@@ -3,24 +3,24 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
-
 use App\Entity\User;
 use App\Model\UserRegisterDTO;
 use App\Repository\OrganizationRepository;
+use App\Repository\UserRepository;
 
 #[Route('/api', defaults: ['_format' => 'json'])]
 final class ApiLoginController extends AbstractController
 {
     #[Route('/login', name: 'app_api_login', methods: ['POST'])]
-    public function login(#[CurrentUser] ?User $user): Response
+    public function login(#[CurrentUser] ?User $user, JWTTokenManagerInterface $jwtManager): Response
     {
         if (is_null($user)) {
             return $this->json(
@@ -29,7 +29,7 @@ final class ApiLoginController extends AbstractController
             );
         }
 
-        $token = new UsernamePasswordToken($user, 'main', $user->getRoles());
+        $token = $jwtManager->create($user);
 
         return $this->json([
             'email' => $user->getUserIdentifier(),
@@ -41,21 +41,27 @@ final class ApiLoginController extends AbstractController
     #[Route('/register', name: 'app_api_register', methods: ['POST'])]
     public function register(
         #[MapRequestPayload]
-        UserRegisterDTO             $request,
+        UserRegisterDTO $request,
         UserPasswordHasherInterface $passwordHasher,
-        OrganizationRepository      $organizationRepository,
-        EntityManagerInterface      $em,
-    ): JsonResponse
-    {
+        OrganizationRepository $organizationRepository,
+        UserRepository $userRepository,
+        EntityManagerInterface $em,
+    ): JsonResponse {
         $organization = null;
         if (!is_null($request->organizationID)) {
             $organization = $organizationRepository->find($request->organizationID);
 
             if (is_null($organization)) {
                 return $this->json(
-                    ['error' => 'invalid organization'], Response::HTTP_BAD_REQUEST
+                    ['error' => 'invalid organization'],
+                    Response::HTTP_BAD_REQUEST
                 );
             }
+        }
+
+        $userExists = $userRepository->findOneBy(['email' => $request->email]);
+        if (!is_null($userExists)) {
+            return $this->json(['error' => 'user already exists'], Response::HTTP_CONFLICT);
         }
 
         $user = new User();
@@ -73,7 +79,8 @@ final class ApiLoginController extends AbstractController
                 'id' => $user->getId(),
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
-            ], Response::HTTP_CREATED
+            ],
+            Response::HTTP_CREATED
         );
     }
 }
