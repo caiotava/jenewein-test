@@ -2,26 +2,37 @@
 
 namespace App\Controller;
 
-use App\Model\OrganizationResponseDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Entity\Organization;
 use App\Model\OrganizationRequestDTO;
+use App\Model\OrganizationResponseDTO;
 use App\Repository\OrganizationRepository;
+use App\Service\Paginator;
 
 #[IsGranted('ROLE_SUPER_ADMIN')]
 final class OrganizationController extends AbstractController
 {
     #[Route('/api/organizations', name: 'app_organization_list', methods: ['GET'])]
-    public function list(OrganizationRepository $organizationRepository): JsonResponse
+    public function list(OrganizationRepository $organizationRepo, Request $request, Paginator $paginator): JsonResponse
     {
-        $organizations = $organizationRepository->findAll();
+        $queryBuilder = $organizationRepo->createQueryBuilder("o")->orderBy('o.id', 'ASC');
+        $result = $paginator->paginate(
+            $queryBuilder,
+            $request->query->get('page', 1),
+            $request->query->getInt('limit', 20),
+        );
 
-        return $this->json($organizations);
+        if (isset($result['items'])) {
+            $result['items'] = OrganizationResponseDTO::fromList($result['items']);
+        }
+
+        return $this->json($result);
     }
 
     #[Route('/api/organizations', name: 'app_organization_create', methods: ['POST'])]
