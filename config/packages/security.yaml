@@ -34,6 +34,10 @@ security:
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }
 
+    role_hierarchy:
+        ROLE_CONTENT_MANAGER: ROLE_USER
+        ROLE_ADMIN: ROLE_CONTENT_MANAGER
+
 when@test:
     security:
         password_hashers:
