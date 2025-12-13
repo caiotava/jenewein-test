@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimestampEntityTrait;
@@ -43,6 +44,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\OneToMany(targetEntity: UserCourse::class, mappedBy: 'user')]
     private Collection $courses;
+
+    #[ORM\ManyToOne(targetEntity: Organization::class, inversedBy: 'users')]
+    private ?Organization $organization;
 
     public function __construct()
     {
@@ -162,6 +166,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $course->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): self
+    {
+        $this->organization = $organization;
 
         return $this;
     }

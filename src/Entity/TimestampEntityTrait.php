@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-#[ORM\HasLifecycleCallbacks]
 trait TimestampEntityTrait
 {
     #[ORM\Column]
@@ -19,6 +18,7 @@ trait TimestampEntityTrait
     public function onCreate(): void
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = $this->createdAt;
     }
 
     #[ORM\PreUpdate]
