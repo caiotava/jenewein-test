@@ -13,7 +13,7 @@ use App\Entity\Organization;
 use App\Model\OrganizationRequestDTO;
 use App\Model\OrganizationResponseDTO;
 use App\Repository\OrganizationRepository;
-use App\Service\Paginator;
+use App\Service\Pagination\Paginator;
 
 #[IsGranted('ROLE_SUPER_ADMIN')]
 final class OrganizationController extends AbstractController
@@ -22,17 +22,9 @@ final class OrganizationController extends AbstractController
     public function list(OrganizationRepository $organizationRepo, Request $request, Paginator $paginator): JsonResponse
     {
         $queryBuilder = $organizationRepo->createQueryBuilder("o")->orderBy('o.id', 'ASC');
-        $result = $paginator->paginate(
-            $queryBuilder,
-            $request->query->get('page', 1),
-            $request->query->getInt('limit', 20),
-        );
+        $result = $paginator->paginate($queryBuilder, $request);
 
-        if (isset($result['items'])) {
-            $result['items'] = OrganizationResponseDTO::fromList($result['items']);
-        }
-
-        return $this->json($result);
+        return $this->json($result->convertItemsToDTO(OrganizationResponseDTO::class));
     }
 
     #[Route('/api/organizations', name: 'app_organization_create', methods: ['POST'])]
