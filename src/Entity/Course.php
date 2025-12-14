@@ -75,36 +75,6 @@ class Course
         return $this;
     }
 
-    /**
-     * @return Collection<int, UserCourse>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(UserCourse $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->setCourse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(UserCourse $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getCourse() === $this) {
-                $user->setCourse(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getOrganization(): ?Organization
     {
         return $this->organization;
