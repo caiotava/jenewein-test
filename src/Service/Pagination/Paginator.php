@@ -30,7 +30,7 @@ class Paginator
             $limit,
             $page,
             $total,
-            ($total / $limit),
+            $totalPages,
         );
     }
 }

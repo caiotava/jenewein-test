@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use App\Entity\User;
 use App\Model\UserRegisterDTO;
+use App\Model\UserResponseDTO;
 use App\Repository\OrganizationRepository;
 use App\Repository\UserRepository;
 
@@ -31,11 +32,7 @@ final class ApiLoginController extends AbstractController
 
         $token = $jwtManager->create($user);
 
-        return $this->json([
-            'email' => $user->getUserIdentifier(),
-            'name' => $user->getName(),
-            'token' => $token,
-        ]);
+        return $this->json(new UserResponseDTO($user, $token));
     }
 
     #[Route('/register', name: 'app_api_register', methods: ['POST'])]

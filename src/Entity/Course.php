@@ -20,6 +20,9 @@ class Course
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\ManyToOne(targetEntity: Organization::class, inversedBy: 'courses')]
+    private Organization $organization;
+
     /**
      * @var Collection<int, UserCourse>
      */
@@ -74,6 +77,18 @@ class Course
                 $user->setCourse(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): self
+    {
+        $this->organization = $organization;
 
         return $this;
     }

@@ -40,7 +40,7 @@ trait TimestampEntityTrait
 
     public function isDeleted(): bool
     {
-        return is_null($this->deletedAt);
+        return !is_null($this->deletedAt);
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

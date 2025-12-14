@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Security\Role;
 use Symfony\Component\Validator\Constraints as Assert;
 
 readonly class UserRegisterDTO
@@ -13,7 +14,7 @@ readonly class UserRegisterDTO
         public string $email,
         #[Assert\NotBlank] #[Assert\Length(min: 8)]
         public string $password,
-        #[Assert\Choice(choices: ['ROLE_USER', 'ROLE_CONTENT_MANAGER', 'ROLE_SUPER_ADMIN'])]
+        #[Assert\Choice(choices: [Role::USER, Role::CONTENT_MANAGER, Role::ADMIN])]
         public string $role,
         public int|null $organizationID,
     ) {

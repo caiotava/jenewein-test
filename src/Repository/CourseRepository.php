@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Course;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,6 +16,14 @@ class CourseRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Course::class);
+    }
+
+    public function queryByOrganization(int $organizationID): QueryBuilder
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.organization = :val')
+            ->setParameter('val', $organizationID)
+            ->orderBy('c.id', 'ASC');
     }
 
     //    /**

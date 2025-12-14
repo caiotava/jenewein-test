@@ -14,8 +14,9 @@ use App\Model\OrganizationRequestDTO;
 use App\Model\OrganizationResponseDTO;
 use App\Repository\OrganizationRepository;
 use App\Service\Pagination\Paginator;
+use App\Security\Role;
 
-#[IsGranted('ROLE_SUPER_ADMIN')]
+#[IsGranted(Role::ADMIN->value)]
 final class OrganizationController extends AbstractController
 {
     #[Route('/api/organizations', name: 'app_organization_list', methods: ['GET'])]
