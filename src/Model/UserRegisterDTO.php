@@ -14,9 +14,9 @@ readonly class UserRegisterDTO
         public string $email,
         #[Assert\NotBlank] #[Assert\Length(min: 8)]
         public string $password,
-        #[Assert\Choice(choices: [Role::USER, Role::CONTENT_MANAGER, Role::ADMIN])]
+        #[Assert\Choice(choices: [Role::USER->value, Role::CONTENT_MANAGER->value, Role::ADMIN->value])]
         public string $role,
-        public int|null $organizationID,
+        public int|null $organization_id,
     ) {
     }
 }

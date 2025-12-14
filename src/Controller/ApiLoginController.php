@@ -45,8 +45,8 @@ final class ApiLoginController extends AbstractController
         EntityManagerInterface $em,
     ): JsonResponse {
         $organization = null;
-        if (!is_null($request->organizationID)) {
-            $organization = $organizationRepository->find($request->organizationID);
+        if (!is_null($request->organization_id)) {
+            $organization = $organizationRepository->find($request->organization_id);
 
             if (is_null($organization)) {
                 return $this->json(
