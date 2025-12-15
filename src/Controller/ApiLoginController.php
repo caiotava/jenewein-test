@@ -17,10 +17,9 @@ use App\Model\UserResponseDTO;
 use App\Repository\OrganizationRepository;
 use App\Repository\UserRepository;
 
-#[Route('/api', defaults: ['_format' => 'json'])]
 final class ApiLoginController extends AbstractController
 {
-    #[Route('/login', name: 'app_api_login', methods: ['POST'])]
+    #[Route('/api/login', name: 'app_api_login', methods: ['POST'])]
     public function login(#[CurrentUser] ?User $user, JWTTokenManagerInterface $jwtManager): Response
     {
         if (is_null($user)) {
@@ -35,7 +34,7 @@ final class ApiLoginController extends AbstractController
         return $this->json(new UserResponseDTO($user, $token));
     }
 
-    #[Route('/register', name: 'app_api_register', methods: ['POST'])]
+    #[Route('/api/register', name: 'app_api_register', methods: ['POST'])]
     public function register(
         #[MapRequestPayload]
         UserRegisterDTO $request,

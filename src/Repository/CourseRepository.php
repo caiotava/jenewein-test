@@ -19,12 +19,15 @@ class CourseRepository extends ServiceEntityRepository
         parent::__construct($registry, Course::class);
     }
 
-    public function queryByOrganization(int $organizationID): QueryBuilder
+    public function queryByOrganization(?int $organizationID): QueryBuilder
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.organization = :val')
-            ->setParameter('val', $organizationID)
-            ->orderBy('c.id', 'ASC');
+        $qb = $this->createQueryBuilder('c')->orderBy('c.id', 'ASC');
+
+        if (!is_null($organizationID)) {
+            $qb->andWhere('c.organization = :val')->setParameter('val', $organizationID);
+        }
+
+        return $qb;
     }
 
     public function accessibleUserCourses(int $userID, User $userRequesting): ?QueryBuilder

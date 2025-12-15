@@ -36,7 +36,7 @@ final class CourseController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        $queryBuilder = $courseRepo->queryByOrganization($user->getOrganization()->getId());
+        $queryBuilder = $courseRepo->queryByOrganization($organizationID);
         $result = $paginator->paginate($queryBuilder, $request);
 
         return $this->json($result->convertItemsToDTO(CourseResponseDTO::class));
