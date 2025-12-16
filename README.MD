@@ -46,6 +46,20 @@ The default urls are:
 
 You can change the container ports on compose.yaml.
 
+---
+
+## API Testing (Postman Collection)
+
+A **Postman collection** is available in the [docs/Curjos-API.postman_collection.json](`/docs/Curjos-API.postman_collection.json`)  to help test the backend API.
+
+### How to use the collection
+
+1. Import the collection into Postman.
+2. Run the **`/api/login`** request with valid credentials.
+3. On successful login, the API returns a **JWT token**.
+4. The collection automatically stores this token as a **global variable**.
+5. All subsequent requests use this JWT for authentication.
+
 ### Access credentials
 The Docker image has a pre-populated database, containing sample data for:
 
