@@ -50,7 +50,7 @@ You can change the container ports on compose.yaml.
 
 ## API Testing (Postman Collection)
 
-A **Postman collection** is available in the [docs/Curjos-API.postman_collection.json](`/docs/Curjos-API.postman_collection.json`)  to help test the backend API.
+A **Postman collection** is available in the [docs/Curjos-API.postman_collection.json](/docs/Curjos-API.postman_collection.json)  to help test the backend API.
 
 ### How to use the collection
 
@@ -85,7 +85,7 @@ Use the following credentials to log in as an administrator:
 
 Each organization has an associated content manager account.
 
-manager+<organizationId>@gmail.com
+manager+`<organizationId>`@gmail.com
 
 ```json
 {
@@ -97,7 +97,7 @@ manager+<organizationId>@gmail.com
 ##### Students
 
 Each organization also has students accounts.
-student+<organizationId>@gmail.com
+student+`<organizationId>`@gmail.com
 
 ```json
 {
