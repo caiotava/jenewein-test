@@ -15,9 +15,7 @@ const Pagination = ({page, totalPages, onPageChange}: Props) => {
                 Previous
             </button>
 
-            <span>
-                    Page {page} of {totalPages}
-                </span>
+            <span>Page {page} of {totalPages}</span>
 
             <button
                 disabled={page >= totalPages}

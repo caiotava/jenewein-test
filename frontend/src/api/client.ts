@@ -1,4 +1,8 @@
-const API_URL = (window as any).__ENV__?.API_URL ?? import.meta.env.VITE_API_URL;
+let API_URL = (window as any).__ENV__?.API_URL
+
+if (API_URL === "${API_URL}") {
+    API_URL = import.meta.env.VITE_API_URL;
+}
 
 export type PaginatedResponse<T> = {
     items: T[];

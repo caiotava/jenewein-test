@@ -20,8 +20,8 @@ export default function OrganizationsPage() {
                 <table className="w-full border-collapse text-sm">
                     <thead>
                     <tr className="bg-gray-800 text-white">
-                        <th className="px-4 py-3 font-semibold">ID</th>
-                        <th className="px-4 py-3 font-semibold">Name</th>
+                        <th className="px-1 py-3 font-semibold">ID</th>
+                        <th className="px-4 py-3 text-left font-semibold">Name</th>
                     </tr>
                     </thead>
 
@@ -29,7 +29,7 @@ export default function OrganizationsPage() {
                     {data.items.map(item => (
                         <tr className="border-b last:border-0 hover:bg-gray-100 transition">
                             <td className="px-1 py-3 text-gray-700">{item.id}</td>
-                            <td className="px-4 py-3 font-medium text-gray-900">{item.name}</td>
+                            <td className="px-4 py-3 text-left font-medium text-gray-900">{item.name}</td>
                         </tr>
                     ))}
                     </tbody>

@@ -10,6 +10,6 @@ export function useOrganizations(page : number) {
     return useQuery({
         queryKey: ["organizations", page],
         queryFn: () =>
-            apiFetch<PaginatedResponse<Organization>>(`/api/organizations?page=${page}`)
+            apiFetch<PaginatedResponse<Organization>>(`/api/organizations?page=${page}&limit=15`)
     })
 }

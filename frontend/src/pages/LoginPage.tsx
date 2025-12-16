@@ -41,15 +41,10 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-                <h1 className="text-2xl font-bold text-center mb-6">
-                    Sign in
-                </h1>
-
+                <h1 className="text-2xl font-bold text-center mb-6">Sign in</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium mb-1">
-                            Email
-                        </label>
+                        <label className="block text-sm font-medium mb-1">Email</label>
                         <div className="relative">
                             <EnvelopeIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"/>
                             <input
@@ -64,9 +59,7 @@ export default function LoginPage() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-1">
-                            Password
-                        </label>
+                        <label className="block text-sm font-medium mb-1">Password</label>
                         <div className="relative">
                             <LockClosedIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"/>
                             <input
@@ -81,9 +74,7 @@ export default function LoginPage() {
                     </div>
 
                     {error && (
-                        <p className="text-sm text-red-600 text-center">
-                            {error}
-                        </p>
+                        <p className="text-sm text-red-600 text-center">{error}</p>
                     )}
 
                     <button

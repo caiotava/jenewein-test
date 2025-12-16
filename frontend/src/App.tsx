@@ -3,7 +3,7 @@ import {Routes, Route} from "react-router-dom";
 import NavBar from "@/components/navBar";
 import PageType from "@/shared/PageType";
 import {RequireAuth} from "@/api/auth";
-import {CoursePage, CoursesPage, LoginPage, LogoutPage, OrganizationsPage} from "@/pages";
+import {CoursePage, CoursesPage, IndexRedirect, LoginPage, LogoutPage, OrganizationsPage} from "@/pages";
 
 function App() {
     return (
@@ -12,6 +12,7 @@ function App() {
                 <NavBar/>
                 <main className="main mt-10">
                     <Routes>
+                        <Route path="/" element={<IndexRedirect/>}/>
                         <Route path="/login" element={<LoginPage/>}/>
 
                         <Route element={<RequireAuth roles={["ROLE_USER", "ROLE_ADMIN"]}/>}>
