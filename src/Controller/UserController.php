@@ -56,7 +56,7 @@ final class UserController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        if ($user->getOrganization()->getId() !== $course->getOrganization()->getId()) {
+        if ($user->getOrganization()?->getId() !== $course->getOrganization()->getId() && !$userAuth->isAdmin()) {
             throw $this->createAccessDeniedException();
         }
 
