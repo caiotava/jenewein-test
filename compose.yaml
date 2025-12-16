@@ -10,7 +10,7 @@ services:
     build: ./frontend
     container_name: curjos-frontend
     environment:
-      API_URL: http://backend:8000
+      API_URL: http://localhost:8000
     ports:
       - "3000:80"
     depends_on:
