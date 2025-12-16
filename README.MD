@@ -45,3 +45,52 @@ The default urls are:
 - http://localhost:8000 - Backend
 
 You can change the container ports on compose.yaml.
+
+### Access credentials
+The Docker image has a pre-populated database, containing sample data for:
+
+- Organizations
+- Users
+- Courses
+- Course contents
+
+This allows the application to be tested immediately, without any manual setup.
+
+##### Admin access
+
+Use the following credentials to log in as an administrator:
+
+```json
+{
+    "username": "admin@gmail.com",
+    "password": "12345678"
+}
+```
+
+##### Organization managers
+
+Each organization has an associated content manager account.
+
+manager+<organizationId>@gmail.com
+
+```json
+{
+    "username": "manager+1@gmail.com",
+    "password": "12345678"
+}
+```
+
+##### Students
+
+Each organization also has students accounts.
+student+<organizationId>@gmail.com
+
+```json
+{
+    "username": "student+1@gmail.com",
+    "password": "12345678"
+}
+```
+
+
+All users have the same password `12345678`
