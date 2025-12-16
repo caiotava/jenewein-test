@@ -27,7 +27,6 @@ const NavBar = () => {
                         {isAdmin && (
                             <>
                                 <Link page="Organizations"/>
-                                <Link page="Users"/>
                             </>
                         )}
 

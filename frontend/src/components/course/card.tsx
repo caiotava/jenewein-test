@@ -15,15 +15,14 @@ const CourseCard = ({id, name, description}: Props) => {
             onClick={() => navigate(`/courses/${id}`)}
             className="
                     bg-white
+                    shadow-sm
                     rounded-xl
                     border
                     border-gray-200
                     p-5
-                    shadow-sm
                     transition
                     hover:shadow-lg
                     hover:bg-rose-50
-                    cursor-pointer
             "
         >
             <h2 className="font-bold text-lg text-gray-800">

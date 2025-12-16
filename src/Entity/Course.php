@@ -94,26 +94,4 @@ class Course
     {
         return $this->courseContents;
     }
-
-    public function addCourseContent(CourseContent $courseContent): static
-    {
-        if (!$this->courseContents->contains($courseContent)) {
-            $this->courseContents->add($courseContent);
-            $courseContent->setCourse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCourseContent(CourseContent $courseContent): static
-    {
-        if ($this->courseContents->removeElement($courseContent)) {
-            // set the owning side to null (unless already changed)
-            if ($courseContent->getCourse() === $this) {
-                $courseContent->setCourse(null);
-            }
-        }
-
-        return $this;
-    }
 }

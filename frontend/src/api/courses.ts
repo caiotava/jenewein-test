@@ -6,7 +6,15 @@ export type Course = {
     id: number;
     name: string;
     description: string;
+    contents: CourseContent[]
 };
+
+export type CourseContent = {
+    id: number;
+    title: string;
+    description: string;
+    link: string;
+}
 
 export function useCourses(page: number) {
     const {userID} = userAuth();
@@ -14,5 +22,13 @@ export function useCourses(page: number) {
         queryKey: ["courses", page],
         queryFn: () =>
             apiFetch<PaginatedResponse<Course>>(`/api/users/${userID}/courses?page=${page}&limit=6`),
+    });
+}
+
+export function useCourse(id: string | undefined) {
+    return useQuery({
+        queryKey: ["course"],
+        queryFn: () =>
+            apiFetch<Course>(`/api/courses/${id}`),
     });
 }
